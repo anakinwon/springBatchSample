@@ -1,0 +1,41 @@
+server:
+  port: 8090
+spring:
+  config:
+    active:
+      on-profile: mysql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/springbatch?useUnicode=true&characterEncoding=utf8
+    username: spring
+    password: 1111
+  jpa:
+    database: mysql
+    generate-ddl: false
+    hibernate:
+      ddl-auto: update
+      use-new-id-generator-mappings: false  # 테이블 시퀸스 전략은 모든 엔티티에 대한 id값을 시퀸스 테이블 하나에서 통합적으로 관리하는 전략
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+        dialect: org.hibernate.dialect.MySQL8Dialect
+  batch:
+    job:
+      names: ${job.name:NONE}
+      enabled: false
+    jdbc:
+      initialize: never
+
+logging:
+  level:
+    org.hibernate.SQL: debug
+    org.hibernate.type: trace
+#    org.springframework: debug
+#    org.springframework.web: debug
+#    com.pisien: info
+
+# mybatis 설정
+mybatis:
+  mapper-locations: classpath:mybatis/mapper/**/**.xml
+
